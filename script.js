@@ -4,7 +4,7 @@ const translations = {
         hero_status: "Disponível para Desafios",
         hero_title: "Analista de TI e <span class='text-white'>Futuro Desenvolvedor Full Stack,</span> especializado em criar soluções com Inteligência Artificial.",
         about_header: "Sobre",
-        about_text: "Atualmente no último período de Análise e Desenvolvimento de Sistemas no Centro Universitário Serra dos Órgãos – UNIFESO (Teresópolis), trilhei um caminho de evolução constante: da base sólida em suporte e redes na Prefeitura de Saquarema ao desenvolvimento de softwares complexos. Meu objetivo é integrar IA e bancos de dados MySQL para entregar soluções Full Stack que resolvam problemas reais de forma inovadora.",
+        about_text: "Atualmente no <span class='text-cyan-400 font-semibold'>último período</span> de Análise e Desenvolvimento de Sistemas no Centro Universitário Serra dos Órgãos – <span class='text-white font-semibold'>UNIFESO (Teresópolis)</span>, trilhei um caminho de evolução constante: da base sólida em suporte e redes na Prefeitura de Saquarema ao desenvolvimento de softwares complexos. Meu objetivo é integrar IA e bancos de dados MySQL para entregar soluções Full Stack que resolvam problemas reais de forma inovadora.",
         projects_header: "Projetos em Destaque",
         proj1_desc: "API RESTful completa utilizando Node.js e MySQL.",
         habilidades_header: "Minhas Competências",
