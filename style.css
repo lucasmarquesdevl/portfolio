@@ -1,5 +1,19 @@
 body { font-family: 'Inter', sans-serif; }
 
+nav {
+    background: rgba(15, 23, 42, 0.88); /* tom mais escuro para contraste */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+nav a {
+    color: #cbd5e1;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
 .glass-card { 
     background: rgba(30, 41, 59, 0.7); 
     backdrop-filter: blur(10px); 
