@@ -1,6 +1,7 @@
 const translations = {
     br: {
         nav_about: "Sobre", nav_projects: "Projetos", nav_habilidades: "Habilidades", nav_certs: "Certificados", nav_contact: "CONTATO", nav_partners: "Parceiros",
+        export_menu: "Exportar", export_portfolio: "Exportar Portfólio", export_cv: "Exportar CV",
         hero_status: "Disponível para Desafios",
         hero_title: "Analista de TI e <span class='text-white'>Futuro Desenvolvedor Full Stack,</span> especializado em criar soluções com Inteligência Artificial.",
         about_header: "Sobre",
@@ -33,6 +34,7 @@ const translations = {
     },
     en: {
         nav_about: "About", nav_projects: "Projects", nav_habilidades: "Skills", nav_certs: "Certificates", nav_contact: "CONTACT", nav_partners: "Partners",
+        export_menu: "Export", export_portfolio: "Export Portfolio", export_cv: "Export CV",
         hero_status: "Available for Challenges",
         hero_title: "IT Analyst & <span class='text-white'>Aspiring Full Stack Developer</span> focused on AI.",
         about_header: "About",
@@ -65,6 +67,7 @@ const translations = {
     },
     es: {
         nav_about: "Sobre", nav_projects: "Proyectos", nav_habilidades: "Habilidades", nav_certs: "Certificados", nav_contact: "CONTACTO", nav_partners: "Socios",
+        export_menu: "Exportar", export_portfolio: "Exportar Portafolio", export_cv: "Exportar CV",
         hero_status: "Disponible para Desafíos",
         hero_title: "IT Analyst & <span class='text-white'>Aspiring Full Stack Developer</span> enfocado en IA.",
         about_header: "Sobre",
@@ -101,8 +104,8 @@ const partners = [
     {
         name: "MAD",
         logoPath: "logo.mad.jpg",
-        description: "Organização dedicada ao apoio médico especializado na comunidade.",
-        websiteUrl: null
+        description: "Parceria estratégica no desenvolvimento de software e infraestrutura tecnológica para soluções em administração, educação e consultoria empresarial.",
+        websiteUrl: "https://lucasmarquesdevl.github.io/Mad/"
     },
     {
         name: "Associação Comunitária Social e Cultural Marcelo Decolores (ACSCMD)",
@@ -135,27 +138,175 @@ function setLanguage(lang) {
     document.getElementById(`btn-${lang}`).classList.add('active');
     localStorage.setItem('preferredLang', lang);
 
-    // Garante que os ícones do Lucide carreguem após a tradução
+    // Garanta que os ícones do Lucide carreguem após a tradução
     if (window.lucide) {
         window.lucide.createIcons();
     }
 }
 
-document.getElementById('whatsappForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const nome = document.getElementById('name').value;
-    const mensagem = document.getElementById('message').value;
-    const meuNumero = "5522997864651"; 
-    const textoMensagem = `Olá Lucas! Meu nome é ${nome}. ${mensagem}`;
-    const linkZap = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${encodeURIComponent(textoMensagem)}`;
-    window.open(linkZap, '_blank');
-});
+function initTheme() {
+    const themeBtn = document.getElementById('theme-btn');
+    if (!themeBtn) return;
+    
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(savedTheme);
+    
+    themeBtn.addEventListener('click', toggleTheme);
+}
+
+function applyTheme(theme) {
+    const themeBtn = document.getElementById('theme-btn');
+    if (!themeBtn) return;
+    
+    if (theme === 'light') {
+        document.body.classList.add('light-mode');
+        themeBtn.innerHTML = '<i data-lucide="moon" class="w-5 h-5"></i>';
+    } else {
+        document.body.classList.remove('light-mode');
+        themeBtn.innerHTML = '<i data-lucide="sun" class="w-5 h-5"></i>';
+    }
+    
+    localStorage.setItem('theme', theme);
+    
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+}
+
+function setupExportMenu() {
+    const exportBtn = document.getElementById('export-btn');
+    const exportMenu = document.getElementById('export-menu');
+    
+    if (!exportBtn || !exportMenu) return;
+    
+    exportBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        exportMenu.classList.toggle('hidden');
+    });
+    
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dropdown-container')) {
+            exportMenu.classList.add('hidden');
+        }
+    });
+}
+
+function exportPortfolioPDF() {
+    try {
+        console.log('Iniciando export de PDF...');
+
+        if (!window.html2pdf) {
+            alert('Biblioteca de PDF não está carregada. Tente recarregar a página.');
+            return;
+        }
+
+        const opt = {
+            margin: [10, 10, 10, 10],
+            filename: 'Lucas_Trindade_Portfolio.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                allowTaint: true,
+                backgroundColor: '#0f172a'
+            },
+            jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' },
+            pagebreak: { mode: ['css', 'avoid-all', 'legacy'] }
+        };
+
+        html2pdf().set(opt).from(document.body).save();
+        console.log('PDF exportado com sucesso!');
+    } catch (e) {
+        console.error('Erro ao exportar PDF:', e);
+        alert('Erro ao exportar PDF: ' + e.message);
+    }
+}
+
+function exportCV() {
+    alert('CV será disponibilizado em breve! Entre em contato para mais informações.');
+    document.getElementById('export-menu').classList.add('hidden');
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const initialLang = localStorage.getItem('preferredLang') || 'br';
     setLanguage(initialLang);
     renderPartners();
+    initTheme();
+    setupExportMenu();
+    
+    const whatsappForm = document.getElementById('whatsappForm');
+    if (whatsappForm) {
+        whatsappForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('name').value;
+            const mensagem = document.getElementById('message').value;
+            const meuNumero = "5522997864651"; 
+            const textoMensagem = `Olá Lucas! Meu nome é ${nome}. ${mensagem}`;
+            const linkZap = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${encodeURIComponent(textoMensagem)}`;
+            window.open(linkZap, '_blank');
+        });
+    }
 });
+
+function initTheme() {
+    const themeBtn = document.getElementById('theme-btn');
+    if (!themeBtn) return;
+    
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(savedTheme);
+    
+    themeBtn.addEventListener('click', toggleTheme);
+}
+
+function applyTheme(theme) {
+    const themeBtn = document.getElementById('theme-btn');
+    if (!themeBtn) return;
+    
+    if (theme === 'light') {
+        document.body.classList.add('light-mode');
+        themeBtn.innerHTML = '<i data-lucide="moon" class="w-5 h-5"></i>';
+    } else {
+        document.body.classList.remove('light-mode');
+        themeBtn.innerHTML = '<i data-lucide="sun" class="w-5 h-5"></i>';
+    }
+    
+    localStorage.setItem('theme', theme);
+    
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+}
+
+function setupExportMenu() {
+    const exportBtn = document.getElementById('export-btn');
+    const exportMenu = document.getElementById('export-menu');
+    
+    if (!exportBtn || !exportMenu) return;
+    
+    exportBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        exportMenu.classList.toggle('hidden');
+    });
+    
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dropdown-container')) {
+            exportMenu.classList.add('hidden');
+        }
+    });
+}
 
 function renderPartners() {
     const partnersSection = document.createElement('section');

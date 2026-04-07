@@ -83,3 +83,113 @@ nav a:hover {
 .partner-logo:hover {
     transform: scale(1.1);
 }
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-menu {
+    animation: slideDown 0.2s ease;
+}
+
+.dropdown-menu.hidden {
+    display: none;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #1e293b;
+}
+
+body.light-mode .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+}
+
+body.light-mode nav {
+    background: rgba(255, 255, 255, 0.88);
+    border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+body.light-mode nav a {
+    color: #1e293b;
+}
+
+body.light-mode nav a:hover {
+    color: #06b6d4;
+}
+
+body.light-mode .text-white {
+    color: #1e293b;
+}
+
+body.light-mode .text-slate-200 {
+    color: #334155;
+}
+
+body.light-mode .text-slate-300 {
+    color: #475569;
+}
+
+body.light-mode .text-slate-400 {
+    color: #64748b;
+}
+
+body.light-mode .bg-\[\#1e293b\]\/30 {
+    background-color: rgba(226, 232, 240, 0.3);
+}
+
+body.light-mode .bg-\[\#1e293b\]\/20 {
+    background-color: rgba(226, 232, 240, 0.2);
+}
+
+@media print {
+    .fixed,
+    nav,
+    .dropdown-container,
+    #export-btn,
+    .lang-btn,
+    #theme-btn,
+    footer {
+        display: none !important;
+    }
+
+    body {
+        background-color: #0f172a !important;
+        color: #f8fafc !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .glass-card {
+        background: rgba(30, 41, 59, 0.9) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .text-white,
+    .text-slate-200,
+    .text-slate-300,
+    .text-slate-400 {
+        color: #f8fafc !important;
+    }
+
+    .bg-\[\#1e293b\]\/30,
+    .bg-\[\#1e293b\]\/20 {
+        background-color: rgba(30, 41, 59, 0.3) !important;
+    }
+
+    .tooltip-text {
+        display: none !important;
+    }
+}
