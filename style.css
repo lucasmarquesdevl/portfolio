@@ -75,3 +75,11 @@ nav a:hover {
     color: #fff; 
     background: rgba(34, 211, 238, 0.1);
 }
+
+.partner-logo {
+    transition: transform 0.3s ease;
+}
+
+.partner-logo:hover {
+    transform: scale(1.1);
+}

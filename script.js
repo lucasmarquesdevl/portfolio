@@ -1,6 +1,6 @@
 const translations = {
     br: {
-        nav_about: "Sobre", nav_projects: "Projetos", nav_habilidades: "Habilidades", nav_certs: "Certificados", nav_contact: "CONTATO",
+        nav_about: "Sobre", nav_projects: "Projetos", nav_habilidades: "Habilidades", nav_certs: "Certificados", nav_contact: "CONTATO", nav_partners: "Parceiros",
         hero_status: "Disponível para Desafios",
         hero_title: "Analista de TI e <span class='text-white'>Futuro Desenvolvedor Full Stack,</span> especializado em criar soluções com Inteligência Artificial.",
         about_header: "Sobre",
@@ -25,13 +25,14 @@ const translations = {
         cert_english_title: "Inglês para Iniciantes (20h)",
         cert_palestra_1: "Palestra: Compliance Tecnológico (Ouvinte)",
         cert_palestra_2: "Palestra: Carreira TI Internacional (Ouvinte)",
+        partners_header: "Parceiros",
         contact_header: "Vamos conversar?", 
         contact_btn: "ENVIAR PARA WHATSAPP",
         contact_placeholder_name: "Seu Nome",
         contact_placeholder_msg: "Sua Mensagem"
     },
     en: {
-        nav_about: "About", nav_projects: "Projects", nav_habilidades: "Skills", nav_certs: "Certificates", nav_contact: "CONTACT",
+        nav_about: "About", nav_projects: "Projects", nav_habilidades: "Skills", nav_certs: "Certificates", nav_contact: "CONTACT", nav_partners: "Partners",
         hero_status: "Available for Challenges",
         hero_title: "IT Analyst & <span class='text-white'>Aspiring Full Stack Developer</span> focused on AI.",
         about_header: "About",
@@ -56,13 +57,14 @@ const translations = {
         cert_english_title: "English for Beginners (20h)",
         cert_palestra_1: "Lecture: Tech Compliance (Attendee)",
         cert_palestra_2: "Lecture: Int. IT Career (Attendee)",
+        partners_header: "Partners",
         contact_header: "Let's talk?", 
         contact_btn: "SEND TO WHATSAPP",
         contact_placeholder_name: "Your Name",
         contact_placeholder_msg: "Your Message"
     },
     es: {
-        nav_about: "Sobre", nav_projects: "Proyectos", nav_habilidades: "Habilidades", nav_certs: "Certificados", nav_contact: "CONTACTO",
+        nav_about: "Sobre", nav_projects: "Proyectos", nav_habilidades: "Habilidades", nav_certs: "Certificados", nav_contact: "CONTACTO", nav_partners: "Socios",
         hero_status: "Disponible para Desafíos",
         hero_title: "IT Analyst & <span class='text-white'>Aspiring Full Stack Developer</span> enfocado en IA.",
         about_header: "Sobre",
@@ -87,12 +89,34 @@ const translations = {
         cert_english_title: "Inglés para Principiantes (20h)",
         cert_palestra_1: "Conferencia: Compliance Tecnológico",
         cert_palestra_2: "Conferencia: Carrera TI Internacional",
+        partners_header: "Socios",
         contact_header: "¿Hablamos?", 
         contact_btn: "ENVIAR A WHATSAPP",
         contact_placeholder_name: "Tu Nombre",
         contact_placeholder_msg: "Tu Mensaje"
     }
 };
+
+const partners = [
+    {
+        name: "MAD",
+        logoPath: "logo.mad.jpg",
+        description: "Organização dedicada ao apoio médico especializado na comunidade.",
+        websiteUrl: null
+    },
+    {
+        name: "Associação Comunitária Social e Cultural Marcelo Decolores (ACSCMD)",
+        logoPath: "logo.assoc.jpg",
+        description: "Associação focada em atividades sociais e culturais para o desenvolvimento comunitário.",
+        websiteUrl: "https://www.amarcelodecolores.org.br/"
+    },
+    {
+        name: "Projeto de Inclusão Social Amigos da Ponta D'areia (PDA)",
+        logoPath: "logo.ponta.jpg",
+        description: "Projeto dedicado à inclusão social e apoio às comunidades locais.",
+        websiteUrl: "https://www.facebook.com/PISAPDA/"
+    }
+];
 
 function setLanguage(lang) {
     if (!translations[lang]) return;
@@ -130,4 +154,78 @@ document.getElementById('whatsappForm').addEventListener('submit', function(e) {
 document.addEventListener('DOMContentLoaded', () => {
     const initialLang = localStorage.getItem('preferredLang') || 'br';
     setLanguage(initialLang);
+    renderPartners();
 });
+
+function renderPartners() {
+    const partnersSection = document.createElement('section');
+    partnersSection.id = 'partners';
+    partnersSection.className = 'py-20 px-6';
+
+    const container = document.createElement('div');
+    container.className = 'max-w-6xl mx-auto';
+
+    const header = document.createElement('h3');
+    header.className = 'text-3xl font-bold mb-12 text-center text-white';
+    header.setAttribute('data-i18n', 'partners_header');
+    header.innerHTML = 'Parceiros'; // default
+
+    container.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid md:grid-cols-3 gap-8';
+
+    partners.forEach(partner => {
+        const card = document.createElement('div');
+        card.className = 'glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 text-center';
+
+        const img = document.createElement('img');
+        img.src = partner.logoPath;
+        img.alt = `Logo da ${partner.name}`;
+        img.className = 'partner-logo w-full h-48 object-cover';
+        img.setAttribute('aria-label', `Logo do parceiro ${partner.name}`);
+
+        let imgElement = img;
+        if (partner.websiteUrl) {
+            const link = document.createElement('a');
+            link.href = partner.websiteUrl;
+            link.target = '_blank';
+            link.appendChild(img);
+            imgElement = link;
+        }
+
+        const content = document.createElement('div');
+        content.className = 'p-6';
+
+        const name = document.createElement('h4');
+        name.className = 'text-xl font-bold mb-2 text-white';
+        if (partner.websiteUrl) {
+            const link = document.createElement('a');
+            link.href = partner.websiteUrl;
+            link.target = '_blank';
+            link.textContent = partner.name;
+            link.className = 'hover:text-cyan-300 transition';
+            name.appendChild(link);
+        } else {
+            name.textContent = partner.name;
+        }
+
+        const desc = document.createElement('p');
+        desc.className = 'text-sm text-slate-400 mb-6';
+        desc.textContent = partner.description;
+
+        content.appendChild(name);
+        content.appendChild(desc);
+
+        card.appendChild(imgElement);
+        card.appendChild(content);
+
+        grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+    partnersSection.appendChild(container);
+
+    const contactSection = document.getElementById('contact');
+    contactSection.parentNode.insertBefore(partnersSection, contactSection);
+}
