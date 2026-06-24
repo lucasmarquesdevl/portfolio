@@ -102,6 +102,12 @@ const translations = {
 
 const partners = [
     {
+        name: "Lugar de Ser - Espaço Terapêutico",
+        logoPath: "lugardeser.png",
+        description: "Clínica de psicologia em Saquarema baseada em Humanismo e Gestalt-terapia, promovendo saúde mental, autoconhecimento e acolhimento em todas as fases da vida.",
+        websiteUrl: "https://www.instagram.com/lugardeser.terapias"
+    },
+    {
         name: "MAD",
         logoPath: "logo.mad.jpg",
         description: "Parceria estratégica no desenvolvimento de software e infraestrutura tecnológica para soluções em administração, educação e consultoria empresarial.",
